@@ -1,0 +1,42 @@
+static char stack[5000];
+char *p;
+
+int push(char c) {
+    if (p == stack + sizeof(stack))
+        return -1;
+    
+    *p++ = c;
+    return 0;
+}
+
+int pop() {
+    if (p == stack)
+        return -1;
+   
+    return *--p;
+}
+
+bool isValid(char *s) {
+    int ret;
+    p = stack;
+    while (*s) {
+        if (*s == '(' || *s == '{' || *s == '[') {
+            ret = push(*s);
+            if (ret == -1)
+                return false;
+        } else {
+            ret = pop();
+            if (ret == -1)
+                return false;
+            
+            if ((char)ret == '(' && *s != ')' ||
+                (char)ret == '{' && *s != '}' ||
+                (char)ret == '[' && *s != ']')
+                return false;
+        }
+        
+        ++s;
+    }
+    
+    return !!(p == stack);
+}

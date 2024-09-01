@@ -1,0 +1,11 @@
+int reverse(int x) {
+    long int x1=x;
+    long int ret=0;
+    if(x1<0){x1=-x1;}
+    while(x1!=0){
+        ret=ret*10+x1%10;
+        x1=x1/10;
+    }
+    if(ret>INT_MAX){return 0;}
+    return x<0?(-ret):ret;
+}
